@@ -16,31 +16,41 @@ COMMENT
 
 #sudo apt-get remove docker docker-engine docker.io containerd runc
 
+echo
 echo Installing required packages.
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg lsb-release
 echo Required packages installed.
+echo
 
+echo
 echo Adding Docker’s official GPG key.
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo Docker’s official GPG key installed.
+echo
 
+echo
 echo Setting up the repository to use the stable branch
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 echo Stable branch set.
+echo
 
+echo
 echo Installing the latest version of Docker Engine, containerd, and Docker Compose.
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-compose -y
 echo Completed installing the latest version of Docker Engine, containerd, and Docker Compose.
+echo
 
+echo
 echo Completing some post-install configuration
 sudo groupadd docker
 # Adds the current logged in user to docker group
 sudo usermod -aG docker $USER
 sudo systemctl enable docker
 echo Completed post-install configuration. 
+echo
 
-echo Enjoy Docker-CE!
+sudo reboot
